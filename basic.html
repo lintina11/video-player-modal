@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Modal</title>
+</head>
+
+<body>
+  <h1>YouTube Modal</h1>
+  <button data-player-id="1">影片1</button>
+  <button data-player-id="2">影片2</button>
+  <button data-player-id="3">影片3</button>
+  <button data-player-id="4">影片4</button>
+  <button data-player-id="5">影片5</button>
+
+  <video-player-modal id="player-modal"></video-player-modal>
+
+  <script type="module">
+    import { VideoPlayerModal } from './video-player-modal/main.js';
+    const apiPath = 'http://127.0.0.1:3658/m2/1174104-1168045-default/27827149';
+    const player = new VideoPlayerModal('#player-modal', apiPath,{
+        SHOW_TITLE: false,
+        SHOW_DESCRIPTION: false,
+        SHOW_RELATED: true
+    });
+  </script>
+
+</body>
+
+</html>

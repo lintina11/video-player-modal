@@ -1,0 +1,74 @@
+// --- 控制層 ---
+import { Modal } from './controllers/Modal.js'; // 彈窗控制器
+import { useFetchData } from './composables/useFetch.js'; // 獲取影片資訊
+
+// 預設配置
+const DEFAULT_CONFIG = {
+  SHOW_TITLE: true,
+  SHOW_DESCRIPTION: true,
+  SHOW_RELATED: true,
+  PLAYER_SERVICES: 'liteYoutube',
+};
+
+// 播放器服務
+import { liteYoutubeService } from './services/liteYoutubeService.js';
+import { googleDriveService } from './services/googleDriveService.js';
+const PLAYER_SERVICES = {
+  liteYoutube: liteYoutubeService,
+  googleDrive: googleDriveService
+};
+
+export class VideoPlayerModal {
+  constructor(elementId , apiPath, config) {
+    this.instance = document.querySelector(elementId);
+    this.modalName = config.modalName || '';
+    this.triggers = this.modalName ?
+      document.querySelectorAll('[data-modal-name="' + this.modalName + '"]') :
+      document.querySelectorAll('[data-player-id]:not([data-modal-name])');
+    this.apiPath = apiPath;
+    this.player = null;
+    this.config = { ...DEFAULT_CONFIG, ...config };
+    this._ready = this.instance.init(this.config);
+    this.#initEventListeners();
+  }
+
+  #initEventListeners() {
+    this.triggers.forEach(trigger => {
+      trigger.addEventListener('click', (event) => {
+        const playerId = event.target.dataset.playerId;
+        if (!playerId) return;
+        this.initPlayer(playerId);
+      });
+    });
+
+    this.instance.addEventListener('closeModal', () => {
+      this.player?.destroy();
+    });
+
+    this.instance.addEventListener('changeVideo', (event) => {
+      const newVideoId = event.detail;
+      this.player?.destroy();
+      this.initPlayer(newVideoId);
+    });
+  }
+
+  async initPlayer(playerId) {
+    await this._ready;
+    // 渲染影片資訊
+    const data = await useFetchData(this.apiPath, playerId);
+    if (!data.status) return;
+    await this.instance.openModal(data);
+
+    // 動態建立 lite-youtube 播放器
+    this.player = new PLAYER_SERVICES[this.config.PLAYER_SERVICES](this.instance,data.video);
+    this.player.mount();
+
+    // 渲染相關影片
+    if (this.config.SHOW_RELATED) this.instance.renderRelatedVideos(data.related);
+  }
+}
+
+// 註冊自定義元素
+if (!customElements.get('video-player-modal')) {
+  customElements.define('video-player-modal', Modal);
+}
