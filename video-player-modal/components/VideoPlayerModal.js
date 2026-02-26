@@ -1,8 +1,8 @@
 // --- UI層 ---
 import { MODAL_TEMPLATE } from '../templates/template.js';
-import { getInstanceBasePath, getStaticBasePath } from '../composables/usePath.js';
-import { useElements } from '../composables/useElements.js';
-import { escapeHtml } from '../composables/useUtilities.js';
+import { getInstanceBasePath, getStaticBasePath } from '../utils/usePath.js';
+import { useElements } from '../utils/useElements.js';
+import { escapeHtml } from '../utils/useUtilities.js';
 
 export class Modal extends HTMLElement {
 
@@ -45,7 +45,7 @@ export class Modal extends HTMLElement {
         }
         // 取得 timestamp 用於版本控制（避免瀏覽器快取）
         const timestamp = window.APP_TIMESTAMP || Date.now();
-        const cssPath = `${this.basePath}/css/video-player-modal.css?v=${timestamp}`;
+        const cssPath = `${this.basePath}/styles/video-player-modal.css?v=${timestamp}`;
         try {
             const response = await fetch(cssPath);
             if (response.ok) {

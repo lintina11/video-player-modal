@@ -1,4 +1,4 @@
-import { useElements } from '../composables/useElements.js';
+import { useElements } from '../utils/useElements.js';
 const LITE_YOUTUBE_SCRIPT_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.3/lite-yt-embed.js';
 const LITE_YOUTUBE_CSS_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.3/lite-yt-embed.css';
 const LITE_YOUTUBE_SCRIPT_INTEGRITY = 'sha512-WKiiKu2dHNBXgIad9LDYeXL80USp6v+PmhRT5Y5lIcWonM2Avbn0jiWuXuh7mL2d5RsU3ZmIxg5MiWMEMykghA==';

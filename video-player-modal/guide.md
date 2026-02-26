@@ -11,22 +11,22 @@
 video-player-modal/
 ├── main.js                       # 進入點
 ├── guide.md
-├── css/
-│   └── video-player-modal.css    # 元件樣式
-├── controllers/
-│   └── Modal.js                  # Web Component (Shadow DOM)
+├── components/
+│   └── VideoPlayerModal.js        # 元件主體
 ├── services/
 │   ├── liteYoutubeService.js     # YouTube 播放器
 │   └── googleDriveService.js     # Google Drive 播放器
-├── templates/
-│   └── template.js               # HTML 模板
-├── composables/
-│   ├── useElements.js            # DOM 元素查詢
+├── utils/
 │   ├── useFetch.js               # API 資料取得
+│   ├── useElements.js            # DOM 元素查詢
 │   ├── usePath.js                # 資源路徑解析
 │   └── useUtilities.js           # 工具函式（XSS 防護等）
-└── images/
-    └── default-cover.jpg         # 相關影片預設封面圖
+├── templates/
+│   └── template.js               # HTML 模板 (未使用)
+├── styles/
+│   └── video-player-modal.css    # 元件樣式
+├── images/
+│   └── default-cover.jpg         # 相關影片預設封面圖
 ```
 
 ---

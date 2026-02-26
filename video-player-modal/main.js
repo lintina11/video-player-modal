@@ -1,6 +1,6 @@
 // --- 控制層 ---
-import { Modal } from './controllers/Modal.js'; // 彈窗控制器
-import { useFetchData } from './composables/useFetch.js'; // 獲取影片資訊
+import { Modal } from './components/VideoPlayerModal.js'; // 彈窗控制器
+import { useFetchData } from './utils/useFetch.js'; // 獲取影片資訊
 
 // 預設配置
 const DEFAULT_CONFIG = {
