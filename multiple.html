@@ -36,15 +36,15 @@
     import { VideoPlayerModal } from './video-player-modal/main.js';
     const apiPath = 'http://127.0.0.1:3658/m2/1174104-1168045-default/27827149';
     const YTplayer = new VideoPlayerModal('#YTplayer-modal', apiPath,{
-        SHOW_TITLE: false,
-        SHOW_DESCRIPTION: false,
+        SHOW_TITLE: true,
+        SHOW_DESCRIPTION: true,
         SHOW_RELATED: true,
         modalName: 'YTplayer',
     });
     const GDplayer = new VideoPlayerModal('#GDplayer-modal', apiPath,{
         SHOW_TITLE: false,
         SHOW_DESCRIPTION: false,
-        SHOW_RELATED: true,
+        SHOW_RELATED: false,
         PLAYER_SERVICES: 'googleDrive',
         modalName: 'GDplayer',
     });

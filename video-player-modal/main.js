@@ -22,9 +22,7 @@ export class VideoPlayerModal {
   constructor(elementId , apiPath, config) {
     this.instance = document.querySelector(elementId);
     this.modalName = config.modalName || '';
-    this.triggers = this.modalName ?
-      document.querySelectorAll('[data-modal-name="' + this.modalName + '"]') :
-      document.querySelectorAll('[data-player-id]:not([data-modal-name])');
+    this.triggers = document.querySelectorAll('[data-player-id]');
     this.apiPath = apiPath;
     this.player = null;
     this.config = { ...DEFAULT_CONFIG, ...config };
@@ -34,6 +32,9 @@ export class VideoPlayerModal {
 
   #initEventListeners() {
     this.triggers.forEach(trigger => {
+      const modalName = trigger.dataset.modalName;
+      if (this.modalName && modalName !== this.modalName) return; // 有指定 modalName 但與按鈕不相符
+      if (!this.modalName && modalName) return; // 沒有指定 modalName 但按鈕有 data-modal-name
       trigger.addEventListener('click', (event) => {
         const playerId = event.target.dataset.playerId;
         if (!playerId) return;
@@ -62,7 +63,7 @@ export class VideoPlayerModal {
     // 動態建立 lite-youtube 播放器
     this.player = new PLAYER_SERVICES[this.config.PLAYER_SERVICES](this.instance,data.video);
     this.player.mount();
-
+    console.log('this.config.SHOW_RELATED', this.config.SHOW_RELATED);
     // 渲染相關影片
     if (this.config.SHOW_RELATED) this.instance.renderRelatedVideos(data.related);
   }

@@ -69,7 +69,7 @@ export class Modal extends HTMLElement {
             showRelated: this.config.SHOW_RELATED
           });
         this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
-        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        await new Promise(resolve => requestAnimationFrame(resolve));
     }
 
     // === 初始化事件監聽 ===
@@ -120,8 +120,7 @@ export class Modal extends HTMLElement {
             if (title) title.textContent = video.title || '';
             fragment.appendChild(item);
         });
-        relatedContainer.innerHTML = '';
-        relatedContainer.appendChild(fragment);
+        relatedContainer.replaceChildren(fragment);
         if (relatedSection) relatedSection.style.display = 'flex';
         // this.#updateBodyVisibility();
     }
@@ -138,10 +137,9 @@ export class Modal extends HTMLElement {
 
     // 開啟彈窗
     async openModal(data) {
-      const { title, description, relatedSection, modal, iframeContainer } = this.elements;
+      const { title, description, relatedSection, modal } = this.elements;
       // 顯示載入狀態
       if (title && this.config.SHOW_TITLE) title.textContent = data.video.title || '載入中...';
-      if (iframeContainer) iframeContainer.innerHTML = '';
       if (description && this.config.SHOW_DESCRIPTION) description.textContent = data.video.description || '';
       if (relatedSection) relatedSection.style.display = 'none';
       if (modal) modal.classList.add('active');
