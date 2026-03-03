@@ -177,12 +177,13 @@ import { VideoPlayerModal } from '/{路徑}/video-player-modal/main.js';
 
 | 事件名稱 | 觸發時機 | `event.detail` |
 |---|---|---|
+| `openModal` | 彈窗開啟時 | 無 |
 | `closeModal` | 彈窗關閉時 | 無 |
 | `changeVideo` | 點擊相關影片時 | 新影片的 `playerId` |
 
 ```javascript
 const modal = document.querySelector('#my-modal');
-modal.addEventListener('closeModal', () => {
+modal.instance.addEventListener('closeModal', () => {
   console.log('彈窗已關閉');
 });
 ```
@@ -197,7 +198,7 @@ modal.addEventListener('closeModal', () => {
 | 方式 | 說明 | 優先順序 |
 |---|---|---|
 | `base-path` 屬性 | 在 HTML 元素上指定 | 最高 |
-| `window.YOUTUBE_MODAL_BASE_PATH` | 全域 JS 變數 | 次之 |
+| `window.VIDEO_PLAYER_MODAL_PATH` | 全域 JS 變數 | 次之 |
 | 自動偵測 | 透過 `import.meta.url` 推導 | 最低 |
 
 ```html

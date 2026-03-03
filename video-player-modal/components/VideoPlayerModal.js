@@ -143,8 +143,7 @@ export class Modal extends HTMLElement {
       if (description && this.config.SHOW_DESCRIPTION) description.textContent = data.video.description || '';
       if (relatedSection) relatedSection.style.display = 'none';
       if (modal) modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-
+      this.dispatchEvent(new CustomEvent('openModal'));
       // this.#updateBodyVisibility();
     }
 
@@ -152,7 +151,6 @@ export class Modal extends HTMLElement {
     #closeModal() {
         const { modal } = this.elements;
         if (modal) modal.classList.remove('active');
-        document.body.style.overflow = '';
         this.dispatchEvent(new CustomEvent('closeModal'));
     }
 

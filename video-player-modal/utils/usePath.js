@@ -13,7 +13,7 @@
 // 創建實例路徑
 export function getInstanceBasePath(element) {
   const attrPath = element.getAttribute('base-path');
-  const globalPath = window.YOUTUBE_MODAL_BASE_PATH;
+  const globalPath = window.VIDEO_PLAYER_MODAL_PATH;
   const basePath = attrPath || globalPath;
   return normalizePath(basePath);
 }

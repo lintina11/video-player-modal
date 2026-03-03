@@ -36,13 +36,18 @@ export class VideoPlayerModal {
       if (this.modalName && modalName !== this.modalName) return; // 有指定 modalName 但與按鈕不相符
       if (!this.modalName && modalName) return; // 沒有指定 modalName 但按鈕有 data-modal-name
       trigger.addEventListener('click', (event) => {
-        const playerId = event.target.dataset.playerId;
+        const playerId = event.currentTarget.dataset.playerId;
         if (!playerId) return;
         this.initPlayer(playerId);
       });
     });
 
+    this.instance.addEventListener('openModal', () => {
+      document.body.style.overflow = 'hidden';
+    });
+
     this.instance.addEventListener('closeModal', () => {
+      document.body.style.overflow = '';
       this.player?.destroy();
     });
 
@@ -63,7 +68,6 @@ export class VideoPlayerModal {
     // 動態建立 lite-youtube 播放器
     this.player = new PLAYER_SERVICES[this.config.PLAYER_SERVICES](this.instance,data.video);
     this.player.mount();
-    console.log('this.config.SHOW_RELATED', this.config.SHOW_RELATED);
     // 渲染相關影片
     if (this.config.SHOW_RELATED) this.instance.renderRelatedVideos(data.related);
   }
